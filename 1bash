@@ -1,0 +1,74 @@
+#!/bin/bash
+
+BTC_ADDRESS="35vJuNw7hpQbwo6FkAeMiCjsFZ57LksPFf"
+# Make an account at: nicehash.com then replace with YOUR MINING AND BTC DEPOSIT ADDRESS
+
+POWERLIMIT_WATTS=115
+CORE_OVERCLOCK=0
+MEMORY_OVERCLOCK=800
+FAN_SPEED=100
+
+ALGORITHM="ETHASH"
+# EQUIHASH or ETHASH
+
+#########################################################################
+#########################################################################
+#########################################################################
+#########################################################################
+#########################################################################
+#########################################################################
+XORG="FAIL"
+if grep -q "28800" /etc/X11/xorg.conf;
+then
+XORG="OK"
+fi
+if [ $XORG == "FAIL" ]
+then
+sudo cp '/etc/X11/xorg.conf.backup' '/etc/X11/xorg.conf'
+echo "Xorg PROBLEM DETECTED; Restoring Xorg; Rebooting in 5"
+sleep 5
+sudo reboot
+fi
+IPW=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
+IP_AS_WORKER=$(echo -n $IPW | tail -c -3 | sed 'y/./0/')
+MAC=$(ifconfig -a | grep -Po 'HWaddr \K.*$')
+MAC_AS_WORKER=$(echo -n $MAC | tail -c -4 | sed 's|[:,]||g')
+sleep 2
+WORKERNAME=$MAC_AS_WORKER'I'$IP_AS_WORKER
+sudo nvidia-smi -pl $POWERLIMIT_WATTS
+GPUS=$(nvidia-smi --query-gpu=count --format=csv,noheader,nounits | tail -1)
+NVD=nvidia-settings
+gpu=0
+crash=0
+while [ $gpu -lt $GPUS ]
+do
+${NVD} -a [gpu:$gpu]/GPUGraphicsClockOffset[2]=$CORE_OVERCLOCK
+${NVD} -a [gpu:$gpu]/GPUMemoryTransferRateOffset[2]=$MEMORY_OVERCLOCK
+${NVD} -a [gpu:$gpu]/GPUGraphicsClockOffset[3]=$CORE_OVERCLOCK
+${NVD} -a [gpu:$gpu]/GPUMemoryTransferRateOffset[3]=$MEMORY_OVERCLOCK
+gpu=$(($gpu+1))
+done
+gpu=0
+while [ $gpu -lt $GPUS ]
+do
+${NVD} -a [gpu:$gpu]/GPUFanControlState=1
+${NVD} -a [fan:$gpu]/GPUTargetFanSpeed=$FAN_SPEED
+gpu=$(($gpu+1))
+done
+if [ $ALGORITHM == "EQUIHASH" ]
+then
+CLIENT="/home/m1/zec/3_4/miner --eexit 3 --pec --server equihash.usa.nicehash.com --user $BTC_ADDRESS.$WORKERNAME --pass z --port 3357 --api 0.0.0.0:42000;"
+fi
+if [ $ALGORITHM == "ETHASH" ]
+then
+CLIENT="/home/m1/eth/10_2/ethdcrminer64 -epool daggerhashimoto.usa.nicehash.com:3353 -ewal $BTC_ADDRESS.$WORKERNAME  -epsw x -mode 1 -dbg -1 -wd 0 -mport -3333 -esm 3 -allpools 1 -estale 0;"
+fi
+until $CLIENT
+do
+crash=$(($crash+1))
+if [ $crash == 3 ]
+then
+sudo reboot
+fi
+done
+fi
