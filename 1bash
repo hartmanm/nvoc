@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BTC_ADDRESS="35vJuNw7hpQbwo6FkAeMiCjsFZ57LksPFf"
+BTC_ADDRESS="YOUR_NICEHASH_BTC_ADDRESS_HERE"
 # Make an account at: nicehash.com then replace with YOUR MINING AND BTC DEPOSIT ADDRESS
 
 POWERLIMIT_WATTS=115
@@ -11,11 +11,6 @@ FAN_SPEED=100
 ALGORITHM="ETHASH"
 # EQUIHASH or ETHASH
 
-#########################################################################
-#########################################################################
-#########################################################################
-#########################################################################
-#########################################################################
 #########################################################################
 XORG="FAIL"
 if grep -q "28800" /etc/X11/xorg.conf;
