@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo ""
+echo "UPDATE CHECK"
+echo ""
+
+sleep 20
