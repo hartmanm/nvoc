@@ -1,0 +1,88 @@
+<!--
+# Copyright (c) 2018 Michael Neill Hartman. All rights reserved.
+# mnh_license@proton.me
+# https://github.com/hartmanm
+# oros / overlord (previously openrig.net)
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>&nbsp Logout</title>
+</head>
+<body>
+<style>
+body{background-color:#746793; -webkit-app-region: drag;}
+code{padding: 4px 4px;font-size: 115%;color: white; background-color: #746793;border-radius: 2px;}
+h1,h2{color: #2a2f2c;font-family: Lato, sans-serif;font-weight: 340;line-height: 1.125;}
+.content{width: 90vw;max-width: 680px;margin: 0;}
+.content_heading{margin-left: 20px; margin-top: 40px;font-size: 125%;}
+home{padding: 2px 2px; font-family: arial, sans-serif; color: #032166; background-color:#CBD3EE;border-radius: 2px;}
+home:hover,tos:active,tos:focus {color: #CFD0D1; background-color: #12192A; ;cursor: pointer; outline: 0; text-decoration: none}
+.dropdown{display: block; margin-top: 4px; padding: 8px 12px; padding: 8px 12px; padding: 0.5rem 0.75rem; border: 1px solid #cdcfcf; width: 20%; font-family: 'Open Sans', sans-serif; font-size: 16px; font-size: 16px; font-size: 1rem;}
+.dropdown:focus,.dropdown:active {border-color: #686a69; outline: 0;}
+.form{position: relative; display: block; margin: 4px; padding: 0px 80px 20px 10px;}
+.form_input_group{margin-top: 4px; margin-top: 4px; margin-top: 0.25rem; padding: 8px 16px; padding: 8px 16px; padding: 0.5rem 1rem;}
+.form_label{display: block; color: #414643; font-family: Lato, sans-serif; font-size: 75%; line-height: 1.125;}
+.form_input{display: block; margin-top: 4px; padding: 8px 12px; padding: 8px 12px; padding: 0.5rem 0.75rem; border: 1px solid #cdcfcf; width: 60%; font-family: 'Open Sans', sans-serif; font-size: 16px; font-size: 16px; font-size: 1rem;}
+.form_button{padding: 1px 1px; font-size: 115%; color: #12192A; background-color: #CFD0D1; border-radius: 2px;}
+.form_button:hover,.form_button:active,.form_button:focus{color: #CFD0D1; background-color: #12192A; cursor: pointer; outline: 0;}
+.lamdalink:hover,.lamdalink:active,.lamdalink:focus{color: #CFD0D1; background-color: #12192A; cursor: pointer; outline: 0; text-decoration: none;}
+.prices_notice{margin-left: 200px; margin-top: 50px;}
+.logout{margin-top: 50px; margin-bottom: 100px; text-align: center; display: block; color: #414643; font-family: Lato, sans-serif; font-size: 150%; line-height: 1.125;}
+.login{margin-top: 50px; text-align: center; display: block; color: #414643; font-family: Lato, sans-serif; font-size: 100%; line-height: 1.125;}
+teir_text{text-align: center; display: block; color: #414643; font-family: Lato, sans-serif; font-size: 100%; line-height: 1.125; max-width: 200px;}
+teir_text0{text-align: center; display: block; color: #414643; font-family: Lato, sans-serif; font-size: 100%; line-height: 1.125;}
+teir_text_title{text-align: center; display: block; color: #414643; font-family: Lato, sans-serif; font-size: 150%; line-height: 1.125;}
+
+.grid-container0{
+display: grid;
+align: center;
+grid-template-columns: 1;
+grid-gap: 5px;
+grid-template-areas:
+"q"
+"w";}
+.q {grid-area: q;}
+.w {grid-area: w;}
+
+.grid_container{
+display: grid;
+align: center;
+grid-template-columns: 3;
+grid-gap: 5px;
+justify-items: center;
+margin-left: 0px;
+grid-template-areas:
+"e r t"
+"e r t"
+"e r t";}
+.e {grid-area: e;}
+.r {grid-area: r;}
+.t {grid-area: t;}
+
+@media screen and (min-width: 1125px){div{transform: scale(1.5); transition: transform 3s;}.ddiv{margin-top: 200px; margin-bottom: 300px; justify-items: center; overflow:hidden; width:100%;}}
+</style>
+<div class="ddiv">
+<div class="logout"><code id="home_href">nvoc: https://bitcointalk.org/index.php?topic=1854250.0</code></div>
+<div class="logout"><code id="home_href">was replaced by: oros / overlord (previously openrig.net)</code></div>
+<div class="over"><home id="over">overlord api</home></div>
+<div class="grid_container0" id="main"></div>
+<div class="grid_container" id="base"></div>
+</div>
+<script>
+'use strict';
+const overlord = 'https://hartmanm.github.io/overlord';
+const nvoc = 'https://bitcointalk.org/index.php?topic=1854250.0'
+// oros / overlord (previously openrig.net)
+function execute_over(element)
+{
+var url = overlord + "/home";
+window.location.href = url;
+}
+var signup_href = document.getElementById('over');
+signup_href.addEventListener("click", function(e){var target = e.target || e.srcElement; execute_over(target)}, false);
+</script>
+</body>
+</html>
